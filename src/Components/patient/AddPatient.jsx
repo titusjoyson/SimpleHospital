@@ -1,19 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Api from "./Api";
+import Api from "../Api";
 import { toast } from "react-toastify";
 
 const AddPatient = () => {
   const [patient, setPatient] = useState({
+    uhId: "",
     firstName: "",
     lastName: "",
     gender: "",
     location: "",
     mobile: "",
     emailId: "",
+    dob: "",
   });
   const navigate = useNavigate();
   const genders = ["Male", "Female", "Others"];
+
+  useEffect(() => {
+    const getPatient = async () => {
+      Api.get("/patient/" + id, {
+        params: {
+          uhId: patient.uhId,
+          firstName: patient.firstName,
+          lastName: patient.lastName,
+          gender: patient.gender,
+          location: patient.location,
+          mobile: patient.mobile,
+          emailId: patient.emailId,
+          dob: patient.dob,
+        },
+      })
+        .then(function (res) {
+          setPatient(res.data);
+        })
+        .catch((err) => console.log(err));
+    };
+    getPatient();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,7 +73,7 @@ const AddPatient = () => {
         <div className="bg-primary bg-gradient bg-opacity-100 d-flex justify-content-between p-2 border">
           <h4 className="text-light">Create Patient</h4>
           <Link
-            to="/dashboard/patient"
+            to="/pages/patients"
             className="btn btn-md btn-outline-light float-right me-2"
           >
             Back

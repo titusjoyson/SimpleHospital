@@ -24,7 +24,7 @@ const Login = () => {
         })
         .catch(err => console.log(err))*/
     localStorage.setItem("valid", true);
-    navigate("/dashboard/patient");
+    navigate("/pages/patients");
   };
 
   return (

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Api from "./Api";
+import Api from "../Api";
 import ReactPaginate from "react-paginate";
 
-const Patient = () => {
+const AllPatients = () => {
   const [patients, setPatients] = useState([]);
   const navigate = useNavigate();
   const [pageCount, setpageCount] = useState(0);
@@ -92,11 +92,11 @@ const Patient = () => {
 
   return (
     <div className="m-3 p-0 rounded border">
-      <div className="bg-primary bg-gradient bg-opacity-100 d-flex justify-content-between p-2 border">
-        <h4 className="text-light">Patients</h4>
+      <div className="bg-light bg-gradient bg-opacity-100 d-flex justify-content-between p-2 border">
+        <h4 className="text-dark">Patients</h4>
         <Link
-          to="/dashboard/add_patient"
-          className="btn btn-md btn-outline-light float-right"
+          to="/pages/addpatient"
+          className="btn btn-md btn-outline-primary float-right"
         >
           + Create
         </Link>
@@ -205,51 +205,53 @@ const Patient = () => {
           <tbody className="table-hover">
             {patients?.map((e) => (
               <tr key={e.uhId}>
-                <td className="ps-2">
+                <td className="py-3">
                   <Link
-                    to={`/dashboard/patient_view/` + e.id}
+                    to={`/pages/viewpatient/` + e.id}
                     title="Edit"
                     className="link-primary me-2 text-decoration-none"
                   >
                     {e.uhId}
                   </Link>
                 </td>
-                <td>
+                <td className="py-3">
                   {e.firstName} {e.lastName}
                 </td>
-                <td>{e.gender}</td>
-                <td>{e.location}</td>
-                <td>{e.mobile}</td>
-                <td>{e.emailId}</td>
+                <td className="py-3">{e.gender}</td>
+                <td className="py-3">{e.location}</td>
+                <td className="py-3">{e.mobile}</td>
+                <td className="py-3">{e.emailId}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <ReactPaginate
-        name="idReactPaginate"
-        previousLabel="< Previous"
-        nextLabel="Next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
-        marginPagesDisplayed={2}
-        pageCount={pageCount}
-        containerClassName={"pagination justify-content-center"}
-        pageClassName="page-item"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        breakLabel="..."
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
-        activeClassName="active"
-        renderOnZeroPageCount={null}
-        forcePage={currentPage}
-      />
+      {pageCount > 0 && (
+        <ReactPaginate
+          name="idReactPaginate"
+          previousLabel="<<"
+          nextLabel=">>"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={2}
+          pageCount={pageCount}
+          containerClassName={"pagination justify-content-center"}
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakLabel="..."
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          activeClassName="active"
+          renderOnZeroPageCount={null}
+          forcePage={currentPage}
+        />
+      )}
     </div>
   );
 };
 
-export default Patient;
+export default AllPatients;

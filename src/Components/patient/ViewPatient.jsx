@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Api from "./Api";
+import Api from "../Api";
 
-const PatientView = () => {
+const ViewPatient = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [patient, setPatient] = useState({
     uhId: "",
@@ -41,9 +42,13 @@ const PatientView = () => {
   const handleDelete = (id) => {
     Api.delete("/patient/" + id)
       .then(function (res) {
-        window.location.reload();
+        navigate("/pages/patients");
       })
       .catch((err) => console.log(err));
+  };
+
+  const handleEdit = (id) => {
+    navigate("/pages/editpatient/" + id);
   };
 
   return (
@@ -52,7 +57,7 @@ const PatientView = () => {
         <div className="bg-primary bg-gradient bg-opacity-100 d-flex justify-content-between p-2 border">
           <h4 className="text-light">Patient Details</h4>
           <Link
-            to="/dashboard/patient"
+            to="/pages/patients"
             className="btn btn-md btn-outline-light float-right me-2"
           >
             Back
@@ -104,13 +109,17 @@ const PatientView = () => {
             </div>
             <div className="col-12 text-end pt-3 pb-2">
               <button
-                className="btn btn-danger btn-sm m-2"
+                className="btn btn-danger btn-md m-2"
                 title="Delete"
                 onClick={() => handleDelete(patient.id)}
               >
                 Delete
               </button>
-              <button type="submit" className="btn btn-primary btn-sm">
+              <button
+                className="btn btn-primary btn-md"
+                title="Edit"
+                onClick={() => handleEdit(patient.id)}
+              >
                 Edit
               </button>
             </div>
@@ -121,4 +130,4 @@ const PatientView = () => {
   );
 };
 
-export default PatientView;
+export default ViewPatient;

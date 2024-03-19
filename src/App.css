@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main-container {
+  display: flex;
+}
+main {
+  padding: 0px;
+  width: 100%;
+}
+
+.title {
+  font-size: 3rem;
+  display: grid;
+  place-items: center;
+}
+
+/* Sidebar */
+.sidebar {
+  background: rgb(0, 7, 61);
+  color: white;
+  height: 100vh;
+  overflow-y: auto;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0; /* Adjust based on your header/nav height */
+  height: 100vh;
+}
+
+.top_section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 15px 16px 15px;
+  background-color: rgb(29, 78, 216);
+}
+.logo {
+  font-size: 22px;
+  line-height: 0;
+  padding-top: 7px;
+}
+.bars {
+  width: 30px;
+}
+.hide {
+  display: none;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  height: 30px;
+  padding: 10px;
+}
+.search input {
+  border: none;
+  margin-left: 10px;
+  border-radius: 5px;
+  background: rgb(238, 238, 238);
+  color: white;
+}
+
+.routes {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.link {
+  display: flex;
+  color: white;
+  gap: 10px;
+  padding: 5px 10px;
+  border-right: 4px solid transparent;
+  /*transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);*/
+}
+.link:hover {
+  border-right: 4px solid white;
+  background: rgb(45, 51, 89);
+  /*transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);*/
+}
+.active {
+  border-right: 4px solid white;
+  background: rgb(45, 51, 89);
+}
+.link_text {
+  white-space: nowrap;
+  font-size: 15px;
+}
+
+.menu {
+  display: flex;
+  color: white;
+
+  padding: 5px 10px;
+  border-right: 4px solid transparent;
+  /*transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);*/
+  justify-content: space-between;
+}
+.menu_item {
+  display: flex;
+  gap: 10px;
+}
+.menu_container {
+  display: flex;
+  flex-direction: column;
+}
+.menu_container .link {
+  padding-left: 30px;
+  border-bottom: #fff 0px solid;
+}
+
+/* Customizing the dropdown menu */
+.custom-dropdown-menu .dropdown-menu {
+  background-color: rgb(29, 78, 216); /* Light background color */
+  color: #fff; /* Dark text color for contrast */
+}
+
+/* Changing the color of dropdown items on hover */
+.custom-dropdown-menu .dropdown-menu .dropdown-item:hover,
+.custom-dropdown-menu .dropdown-menu .dropdown-item:focus {
+  background-color: rgb(37, 99, 235); /* Slightly darker shade for hover */
+  color: #fff; /* Bootstrap primary color for the text */
+}
+
+/* Optional: Customizing the dropdown toggle button */
+.custom-dropdown-menu .nav-link {
+  color: #fff; /* White text color */
+  background-color: none; /* Bootstrap primary color */
+  border-radius: 0.25rem; /* Rounded corners */
+}
+
+/* Ensuring the dropdown menu text aligns with your design */
+.custom-dropdown-menu .dropdown-menu .dropdown-item {
+  text-align: left; /* Aligning text to the left; adjust as needed */
+}
+.custom-navbar-brand {
+  color: #fff !important; /* Changes the text color to white */
+  font-weight: bold; /* Makes the text bold */
+  font-size: 2.2rem; /* Increases the font size */
+  margin-left: 10px;
+}
+
+/* Adjusting for hover state */
+.custom-navbar-brand:hover,
+.custom-navbar-brand:focus {
+  color: #fff !important; /* Lighter color on hover/focus */
+  text-decoration: none; /* Removes underline on hover/focus */
+}

@@ -1,57 +1,53 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Login from "./Components/Login";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import Login from "./components/Login";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
+import Home from "./components/Home";
+import AllPatients from "./components/patient/AllPatients";
+import AddPatient from "./components/patient/AddPatient";
+import PrivateRoute from "./components/PrivateRoute";
+import ViewPatient from "./components/patient/ViewPatient";
+import EditPatient from "./components/patient/EditPatient";
 import Dashboard from "./Components/Dashboard";
-import Home from "./Components/Home";
-import Patient from "./Components/Patient";
-import Category from "./Components/Category";
-import Profile from "./Components/Profile";
-import AddCategory from "./Components/AddCategory";
-import AddPatient from "./Components/AddPatient";
-import EditEmployee from "./Components/EditEmployee";
-import Start from "./Components/Start";
-import EmployeeLogin from "./Components/EmployeeLogin";
-import EmployeeDetail from "./Components/EmployeeDetail";
-import PrivateRoute from "./Components/PrivateRoute";
-import PatientView from "./Components/PatientView";
+import SideBar from "./Components/Sidebar/SideBar";
+import NavBar from "./components/navbar/NavBar";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Start />}></Route>
-        <Route path="/adminlogin" element={<Login />}></Route>
-        <Route path="/employee_login" element={<EmployeeLogin />}></Route>
-        <Route path="/employee_detail/:id" element={<EmployeeDetail />}></Route>
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        >
-          <Route path="" element={<Home />}></Route>
-          <Route path="/dashboard/patient" element={<Patient />}></Route>
-          <Route path="/dashboard/category" element={<Category />}></Route>
-          <Route path="/dashboard/profile" element={<Profile />}></Route>
+    <Router>
+      <SideBar>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Login />}></Route>
           <Route
-            path="/dashboard/add_category"
-            element={<AddCategory />}
-          ></Route>
-          <Route path="/dashboard/add_patient" element={<AddPatient />}></Route>
-          <Route
-            path="/dashboard/edit_employee/:id"
-            element={<EditEmployee />}
-          ></Route>
-          <Route
-            path="/dashboard/patient_view/:id"
-            element={<PatientView />}
-          ></Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            path="/pages"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          >
+            <Route path="" element={<Home />}></Route>
+            <Route path="/pages/patients" element={<AllPatients />}></Route>
+            <Route path="/pages/addpatient" element={<AddPatient />}></Route>
+            <Route
+              path="/pages/viewpatient/:id"
+              element={<ViewPatient />}
+            ></Route>
+            <Route
+              path="/pages/editpatient/:id"
+              element={<EditPatient />}
+            ></Route>
+          </Route>
+          <Route path="*" element={<> Not found</>} />
+        </Routes>
+      </SideBar>
+    </Router>
   );
 }
 
