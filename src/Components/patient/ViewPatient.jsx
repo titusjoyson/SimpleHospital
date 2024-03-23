@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Api from "../Api";
+import Api from "../home/Api";
 
 const ViewPatient = () => {
   const navigate = useNavigate();

@@ -2,12 +2,11 @@ import React from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import axios from "axios";
-import importImg from "../assets/vhp-logo.png";
 import "./style.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SidebarMenu from "./Sidebar/SidebarMenu";
-import SideBar from "./Sidebar/SideBar";
+import SidebarMenu from "../Sidebar/SidebarMenu";
+import SideBar from "../Sidebar/SideBar";
 import { MdWidthFull } from "react-icons/md";
 
 const Dashboard = () => {

@@ -45,6 +45,10 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
   useEffect(() => {
     if (!isOpen) {
       setIsMenuOpen(false);
+      console.log(
+        "SubRoute paths:",
+        route.subRoutes.map((subRoute) => subRoute.path)
+      );
     }
   }, [isOpen]);
   return (
@@ -90,7 +94,11 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
             className="menu_container"
           >
             {route.subRoutes.map((subRoute, i) => (
-              <motion.div variants={menuItemAnimation} key={i} custom={i}>
+              <motion.div
+                variants={menuItemAnimation}
+                key={subRoute.path}
+                custom={i}
+              >
                 <NavLink to={subRoute.path} className="link">
                   <div className="icon">{subRoute.icon}</div>
                   <motion.div className="link_text">{subRoute.name}</motion.div>

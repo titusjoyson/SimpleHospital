@@ -4,6 +4,8 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { MdLogout, MdSettings } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -11,7 +13,12 @@ const NavBar = () => {
 
   return (
     <>
-      <Navbar bg="primary" data-bs-theme="dark" expand="lg" sticky="top">
+      <Navbar
+        data-bs-theme="dark"
+        expand="lg"
+        sticky="top"
+        className="custom-navbar-bg"
+      >
         <Container fluid>
           <Navbar.Brand href="/" className="custom-navbar-brand">
             Lysander Hospital
@@ -23,13 +30,29 @@ const NavBar = () => {
               <NavDropdown
                 title="Velmurugan"
                 id="collapsible-nav-dropdown"
-                className="custom-dropdown-menu"
+                className="custom-dropdown-menu hide-dropdown-caret"
               >
-                <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.1">
+                  <FaUser /> Profile
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">
+                  <MdSettings /> Settings
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Log Out</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.4">
+                  <MdLogout /> Log Out
+                </NavDropdown.Item>
               </NavDropdown>
+              <img
+                src="/profile-photo.png"
+                alt="Profile photo"
+                className="rounded-circle"
+                style={{
+                  verticalAlign: "middle",
+                  width: "45px",
+                  height: "45px",
+                }}
+              />
             </Nav>
           </Navbar.Collapse>
         </Container>

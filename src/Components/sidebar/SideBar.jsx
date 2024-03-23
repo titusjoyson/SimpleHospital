@@ -29,12 +29,10 @@ import {
   BiPlusMedical,
   BiSearch,
 } from "react-icons/bi";
-import { BiCog } from "react-icons/bi";
-import { AiFillHeart, AiTwotoneFileExclamation } from "react-icons/ai";
-import { BsCartCheck } from "react-icons/bs";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
+
 const routes = [
   {
     path: "/dashboard",
@@ -140,15 +138,32 @@ const SideBar = ({ children }) => {
           <div className="top_section">
             <AnimatePresence>
               {isOpen && (
-                <motion.h1
-                  variants={showAnimation}
-                  initial="hidden"
-                  animate="show"
-                  exit="hidden"
-                  className="logo"
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.5 }}
+                  className="top_section1"
                 >
-                  vHospital&nbsp;+
-                </motion.h1>
+                  <img
+                    src="/vhp-logo.png"
+                    alt="vHospital +"
+                    style={{
+                      verticalAlign: "middle",
+                      width: "30px",
+                      height: "30px",
+                    }}
+                  />
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="logo"
+                  >
+                    &nbsp;Hospital&nbsp;+
+                  </motion.p>
+                </motion.div>
               )}
             </AnimatePresence>
             <div className="bars">
@@ -162,6 +177,7 @@ const SideBar = ({ children }) => {
                 return (
                   <SidebarMenu
                     setIsOpen={setIsOpen}
+                    key={index}
                     route={route}
                     showAnimation={showAnimation}
                     isOpen={isOpen}
