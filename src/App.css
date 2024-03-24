@@ -195,3 +195,21 @@ main {
   outline: 0; /* Remove default outline */
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Add a subtle shadow */
 }
+/* Add this CSS in your main stylesheet or inline */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 200px;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+}

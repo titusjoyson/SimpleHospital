@@ -4,6 +4,7 @@ import Api from "../home/Api";
 import ReactPaginate from "react-paginate";
 import { FaPlus, FaPlusCircle, FaSearch, FaSync } from "react-icons/fa";
 import { MdOutlineRefresh, MdRefresh, MdSearch } from "react-icons/md";
+import nProgress from "nprogress";
 
 const AllPatients = () => {
   const [patients, setPatients] = useState([]);
@@ -35,6 +36,7 @@ const AllPatients = () => {
   }, [limit]);
 
   const fetchPatients = async (currentPage) => {
+    nProgress.start();
     const result = Api.get("/patient/list/" + currentPage + "/" + limit, {
       params: {
         uhId: patient.uhId,
@@ -45,11 +47,15 @@ const AllPatients = () => {
       },
     })
       .then(function (res) {
+        nProgress.done();
         const total = res.data.totalElements;
         setpageCount(Math.ceil(total / limit));
         return res.data.content;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        nProgress.done();
+        console.log(err);
+      });
     return result;
   };
 
@@ -73,6 +79,7 @@ const AllPatients = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    nProgress.start();
     const result = Api.get("/patient/list/0/" + limit, {
       params: {
         uhId: patient.uhId,
@@ -83,13 +90,17 @@ const AllPatients = () => {
       },
     })
       .then(function (res) {
+        nProgress.done();
         const total = res.data.totalElements;
         setpageCount(Math.ceil(total / limit));
         setPatients(res.data.content);
         setCurrentPage(0);
         return res.data.content;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        nProgress.done();
+        console.log(err);
+      });
   };
 
   return (
@@ -97,7 +108,7 @@ const AllPatients = () => {
       className="m-0 p-2 rounded border vh-100"
       style={{ backgroundColor: "#E5E7E9" }}
     >
-      <div class="card">
+      <div className="card">
         <div
           className="card-header text-dark d-flex justify-content-between p-2"
           style={{
@@ -121,7 +132,7 @@ const AllPatients = () => {
             </Link>
           </div>
         </div>
-        <div class="card-body">
+        <div className="card-body">
           <div className="m-0">
             <form className="g-0" onSubmit={handleSearch}>
               <div className="row">

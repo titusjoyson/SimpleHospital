@@ -2,10 +2,23 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Api from "../home/Api";
+import {
+  FaEdit,
+  FaList,
+  FaRemoveFormat,
+  FaSave,
+  FaTrash,
+} from "react-icons/fa";
+import ConfirmationModal from "./ConfirmationModal";
+import { toast } from "react-toastify";
+import nProgress from "nprogress";
 
 const ViewPatient = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentId, setCurrentId] = useState(null);
+
   const [patient, setPatient] = useState({
     uhId: "",
     firstName: "",
@@ -19,6 +32,7 @@ const ViewPatient = () => {
 
   useEffect(() => {
     const getPatient = async () => {
+      nProgress.start();
       Api.get("/patient/" + id, {
         params: {
           uhId: patient.uhId,
@@ -32,19 +46,47 @@ const ViewPatient = () => {
         },
       })
         .then(function (res) {
+          nProgress.done();
           setPatient(res.data);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          nProgress.done();
+          console.log(err);
+        });
     };
     getPatient();
   }, []);
 
-  const handleDelete = (id) => {
-    Api.delete("/patient/" + id)
+  const requestDelete = (id) => {
+    setIsModalOpen(true);
+    setCurrentId(id);
+  };
+
+  const handleDelete = () => {
+    nProgress.start();
+    Api.delete("/patient/" + currentId)
       .then(function (res) {
+        toast.success("Patient deleted!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        nProgress.done();
         navigate("/pages/patients");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        nProgress.done();
+        console.log(err);
+      })
+      .finally(() => {
+        nProgress.done();
+        setIsModalOpen(false); // Close modal in any case
+      });
   };
 
   const handleEdit = (id) => {
@@ -52,79 +94,92 @@ const ViewPatient = () => {
   };
 
   return (
-    <div className="d-flex m-3">
-      <div className="p-0 rounded w-100 border">
-        <div className="bg-primary bg-gradient bg-opacity-100 d-flex justify-content-between p-2 border">
-          <h4 className="text-light">Patient Details</h4>
-          <Link
-            to="/pages/patients"
-            className="btn btn-md btn-outline-light float-right me-2"
-          >
-            Back
-          </Link>
+    <div
+      className="m-0 p-2 rounded border vh-100"
+      style={{ backgroundColor: "#E5E7E9" }}
+    >
+      <div class="card">
+        <div
+          className="card-header text-dark d-flex justify-content-between p-2"
+          style={{
+            backgroundColor: "#D4E6F1",
+          }}
+        >
+          <h5>View Patient</h5>
+          <div className="ml-auto">
+            <Link
+              to="/pages/patients"
+              className="btn btn-sm btn-primary float-right"
+              title="View All"
+            >
+              <FaList /> View All
+            </Link>
+          </div>
         </div>
-        <div className="p-1 bg-white rounded">
-          <div className="container">
-            <div className="row pt-3">
-              <div className="col-6 form-group">
-                <label htmlFor="inputFirstName" className="form-label">
-                  First Name:
+        <div class="card-body">
+          <div className="m-0">
+            <div className="row">
+              <div className="col-md-6 col-lg-4 mb-3">
+                <label className="d-block">
+                  <strong>First Name</strong>
                 </label>
-                <h5>{patient.firstName}</h5>
+                <label className="d-block">{patient.firstName}</label>
               </div>
-              <div className="col-6 form-group">
-                <label htmlFor="inputLastName" className="form-label">
-                  Last Name:
+              <div className="col-md-6 col-lg-4 mb-3">
+                <label className="d-block">
+                  <strong>Last Name</strong>
                 </label>
-                <h5>{patient.lastName}</h5>
+                <label className="d-block">{patient.lastName}</label>
               </div>
-            </div>
-            <div className="row pt-3">
-              <div className="col-6 form-group">
-                <label htmlFor="gender" className="form-label">
-                  Gender:
+              <div className="col-md-6 col-lg-4 mb-3">
+                <label className="d-block">
+                  <strong>Gender</strong>
                 </label>
-                <h5>{patient.gender}</h5>
+                <label className="d-block">{patient.gender}</label>
               </div>
-              <div className="col-6 form-group">
-                <label htmlFor="inputLocation" className="form-label">
-                  Location:
+              <div className="col-md-6 col-lg-4 mb-3">
+                <label className="d-block">
+                  <strong>Location</strong>
                 </label>
-                <h5>{patient.location}</h5>
+                <label className="d-block">{patient.location}</label>
               </div>
-            </div>
-            <div className="row pt-3">
-              <div className="col-6 form-group">
-                <label htmlFor="inputMobile" className="form-label">
-                  Mobile:
+              <div className="col-md-6 col-lg-4 mb-3">
+                <label className="d-block">
+                  <strong>Mobile</strong>
                 </label>
-                <h5>{patient.mobile}</h5>
+                <label className="d-block">{patient.mobile}</label>
               </div>
-              <div className="col-6">
-                <label htmlFor="inputEmailId" className="form-label">
-                  Email Id:
+              <div className="col-md-6 col-lg-4 mb-3">
+                <label className="d-block">
+                  <strong>Email Id</strong>
                 </label>
-                <h5>{patient.emailId}</h5>
+                <label className="d-block">{patient.emailId}</label>
               </div>
-            </div>
-            <div className="col-12 text-end pt-3 pb-2">
-              <button
-                className="btn btn-danger btn-md m-2"
-                title="Delete"
-                onClick={() => handleDelete(patient.id)}
-              >
-                Delete
-              </button>
-              <button
-                className="btn btn-primary btn-md"
-                title="Edit"
-                onClick={() => handleEdit(patient.id)}
-              >
-                Edit
-              </button>
             </div>
           </div>
         </div>
+        <div className="card-footer d-flex justify-content-end p-2">
+          <button
+            className="btn btn-danger btn-sm"
+            style={{ marginRight: "8px" }}
+            title="Delete"
+            onClick={() => requestDelete(patient.id)}
+          >
+            <FaTrash /> Delete
+          </button>
+          <button
+            className="btn btn-primary btn-sm"
+            title="Edit"
+            onClick={() => handleEdit(patient.id)}
+          >
+            <FaEdit /> Edit
+          </button>
+        </div>
+        <ConfirmationModal
+          isOpen={isModalOpen}
+          onConfirm={handleDelete}
+          onCancel={() => setIsModalOpen(false)}
+        />
       </div>
     </div>
   );

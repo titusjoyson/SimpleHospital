@@ -1,5 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "nprogress/nprogress.css";
 import Login from "./components/home/Login";
 import {
   BrowserRouter as Router,

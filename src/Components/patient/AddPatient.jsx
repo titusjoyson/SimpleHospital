@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Api from "../home/Api";
 import { toast } from "react-toastify";
-import { FaSave, FaUsers } from "react-icons/fa";
-import { MdSave } from "react-icons/md";
+import { FaList, FaSave } from "react-icons/fa";
+import nProgress from "nprogress";
 
 const AddPatient = () => {
   const [patient, setPatient] = useState({
@@ -20,6 +20,7 @@ const AddPatient = () => {
   const genders = ["Male", "Female", "Others"];
 
   const handleSubmit = (e) => {
+    nProgress.start();
     const formData = new FormData();
     formData.append("firstName", patient.firstName);
     formData.append("lastName", patient.lastName);
@@ -31,7 +32,8 @@ const AddPatient = () => {
 
     Api.post("/patient/create", formData)
       .then(function (res) {
-        toast.success("Patient created ! UH Id: " + res.data.uhId, {
+        nProgress.done();
+        toast.success("Patient created! UH Id: " + res.data.uhId, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -43,7 +45,10 @@ const AddPatient = () => {
         });
         navigate("/pages/patients");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        nProgress.done(); // Stop the progress bar also on failure
+        console.log(err);
+      });
   };
 
   return (
@@ -64,7 +69,7 @@ const AddPatient = () => {
               to="/pages/patients"
               className="btn btn-sm btn-primary float-right"
             >
-              <FaUsers /> All Patients
+              <FaList /> View All
             </Link>
           </div>
         </div>

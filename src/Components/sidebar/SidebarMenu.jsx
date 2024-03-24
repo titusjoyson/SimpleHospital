@@ -24,13 +24,13 @@ const menuItemAnimation = {
     padding: 0,
     x: "-100%",
     transition: {
-      duration: (i + 1) * 0.1,
+      duration: (i + 1) * 0.0,
     },
   }),
   show: (i) => ({
     x: 0,
     transition: {
-      duration: (i + 1) * 0.1,
+      duration: (i + 1) * 0.0,
     },
   }),
 };
@@ -75,9 +75,9 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
             animate={
               isMenuOpen
                 ? {
-                    rotate: -90,
+                    rotate: 0,
                   }
-                : { rotate: 0 }
+                : { rotate: -90 }
             }
           >
             <FaAngleDown />

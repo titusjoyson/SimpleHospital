@@ -8,7 +8,9 @@ import {
   FaUser,
   FaUserAlt,
   FaUserFriends,
+  FaUserInjured,
   FaUserMd,
+  FaUserPlus,
   FaUsers,
 } from "react-icons/fa";
 import {
@@ -40,19 +42,45 @@ const routes = [
     icon: <FaHome />,
   },
   {
-    path: "/pages/patients",
-    name: "Patients",
-    icon: <FaUsers />,
+    path: "/patient",
+    name: "Patient",
+    icon: <FaUserInjured />,
+    exact: true,
+    subRoutes: [
+      {
+        path: "/pages/patients",
+        name: "All Patients",
+        icon: <FaUsers />,
+      },
+      {
+        path: "/pages/addpatient",
+        name: "Add Patient",
+        icon: <FaUserPlus />,
+      },
+    ],
+  },
+  {
+    path: "/doctor",
+    name: "Doctor",
+    icon: <FaUserMd />,
+    exact: true,
+    subRoutes: [
+      {
+        path: "/pages/doctors",
+        name: "All Doctors",
+        icon: <FaUsers />,
+      },
+      {
+        path: "/pages/adddoctor",
+        name: "Add Doctor",
+        icon: <FaUserPlus />,
+      },
+    ],
   },
   {
     path: "/appointments",
     name: "Appointments",
     icon: <BiCalendar />,
-  },
-  {
-    path: "/doctors",
-    name: "Doctors",
-    icon: <FaUserMd />,
   },
   {
     path: "/treatments",
