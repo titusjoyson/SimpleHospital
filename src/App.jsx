@@ -1,7 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "nprogress/nprogress.css";
-import Login from "./components/home/Login";
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,6 +15,7 @@ import EditPatient from "./components/patient/EditPatient";
 import Dashboard from "./components/home/Dashboard";
 import SideBar from "./components/Sidebar/SideBar";
 import NavBar from "./components/navbar/NavBar";
+import Login from "./components/home/Login";
 
 function App() {
   return (
