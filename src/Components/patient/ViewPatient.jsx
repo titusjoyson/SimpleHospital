@@ -98,14 +98,14 @@ const ViewPatient = () => {
       className="m-0 p-2 rounded border vh-100"
       style={{ backgroundColor: "#E5E7E9" }}
     >
-      <div class="card">
+      <div className="card">
         <div
           className="card-header text-dark d-flex justify-content-between p-2"
           style={{
             backgroundColor: "#D4E6F1",
           }}
         >
-          <h5>View Patient</h5>
+          <h5>Patient Details</h5>
           <div className="ml-auto">
             <Link
               to="/pages/patients"
@@ -116,9 +116,15 @@ const ViewPatient = () => {
             </Link>
           </div>
         </div>
-        <div class="card-body">
+        <div className="card-body">
           <div className="m-0">
             <div className="row">
+              <div className="col-md-6 col-lg-4 mb-3">
+                <label className="d-block">
+                  <strong>UH Id</strong>
+                </label>
+                <label className="d-block">{patient.uhId}</label>
+              </div>
               <div className="col-md-6 col-lg-4 mb-3">
                 <label className="d-block">
                   <strong>First Name</strong>

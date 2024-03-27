@@ -56,7 +56,7 @@ const AddPatient = () => {
       className="m-0 p-2 rounded border vh-100"
       style={{ backgroundColor: "#E5E7E9" }}
     >
-      <div class="card">
+      <div className="card">
         <div
           className="card-header text-dark d-flex justify-content-between p-2"
           style={{
@@ -73,7 +73,7 @@ const AddPatient = () => {
             </Link>
           </div>
         </div>
-        <div class="card-body">
+        <div className="card-body">
           <div className="m-0">
             <div className="row">
               <div className="col-md-6 col-lg-4 mb-2 form-group required">

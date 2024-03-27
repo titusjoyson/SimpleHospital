@@ -50,6 +50,8 @@ main {
 }
 .bars {
   width: 30px;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 .hide {
   display: none;

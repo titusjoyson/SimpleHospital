@@ -1,10 +1,15 @@
 import { NavLink } from "react-router-dom";
 import {
   FaBars,
+  FaBriefcase,
+  FaBriefcaseMedical,
+  FaCartPlus,
   FaClinicMedical,
   FaHome,
+  FaList,
   FaLock,
   FaMoneyBill,
+  FaPlus,
   FaUser,
   FaUserAlt,
   FaUserFriends,
@@ -50,12 +55,30 @@ const routes = [
       {
         path: "/pages/patients",
         name: "All Patients",
-        icon: <FaUsers />,
+        icon: <FaList />,
       },
       {
         path: "/pages/addpatient",
         name: "Add Patient",
-        icon: <FaUserPlus />,
+        icon: <FaPlus />,
+      },
+    ],
+  },
+  {
+    path: "/department",
+    name: "Department",
+    icon: <FaBriefcaseMedical />,
+    exact: true,
+    subRoutes: [
+      {
+        path: "/pages/departments",
+        name: "All Departments",
+        icon: <FaList />,
+      },
+      {
+        path: "/pages/adddepartment",
+        name: "Add Department",
+        icon: <FaPlus />,
       },
     ],
   },
@@ -68,12 +91,12 @@ const routes = [
       {
         path: "/pages/doctors",
         name: "All Doctors",
-        icon: <FaUsers />,
+        icon: <FaList />,
       },
       {
         path: "/pages/adddoctor",
         name: "Add Doctor",
-        icon: <FaUserPlus />,
+        icon: <FaPlus />,
       },
     ],
   },
@@ -170,7 +193,7 @@ const SideBar = ({ children }) => {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 0.0 }}
                   className="top_section1"
                 >
                   <img
@@ -186,7 +209,7 @@ const SideBar = ({ children }) => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
+                    transition={{ duration: 0.0, delay: 0.0 }}
                     className="logo"
                   >
                     &nbsp;Hospital&nbsp;+
