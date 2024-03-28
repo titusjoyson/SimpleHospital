@@ -20,6 +20,10 @@ import EditDepartment from "./components/department/EditDepartment";
 import ViewDepartment from "./components/department/ViewDepartment";
 import AddDepartment from "./components/department/AddDepartment";
 import AllDepartments from "./components/department/AllDepartments";
+import AllDoctors from "./components/doctor/AllDoctors";
+import AddDoctor from "./components/doctor/AddDoctor";
+import ViewDoctor from "./components/doctor/ViewDoctor";
+import EditDoctor from "./components/doctor/EditDoctor";
 
 function App() {
   return (
@@ -61,6 +65,16 @@ function App() {
             <Route
               path="/pages/editdepartment/:id"
               element={<EditDepartment />}
+            ></Route>
+            <Route path="/pages/doctors" element={<AllDoctors />}></Route>
+            <Route path="/pages/adddoctor" element={<AddDoctor />}></Route>
+            <Route
+              path="/pages/viewdoctor/:id"
+              element={<ViewDoctor />}
+            ></Route>
+            <Route
+              path="/pages/editdoctor/:id"
+              element={<EditDoctor />}
             ></Route>
           </Route>
           <Route path="*" element={<> Not found</>} />
