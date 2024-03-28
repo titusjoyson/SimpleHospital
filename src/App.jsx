@@ -7,7 +7,6 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
-import AllPatients from "./components/patient/AllPatients";
 import AddPatient from "./components/patient/AddPatient";
 import PrivateRoute from "./components/home/PrivateRoute";
 import ViewPatient from "./components/patient/ViewPatient";
@@ -16,6 +15,11 @@ import Dashboard from "./components/home/Dashboard";
 import SideBar from "./components/Sidebar/SideBar";
 import NavBar from "./components/navbar/NavBar";
 import Login from "./components/home/Login";
+import AllPatients from "./components/patient/AllPatients";
+import EditDepartment from "./components/department/EditDepartment";
+import ViewDepartment from "./components/department/ViewDepartment";
+import AddDepartment from "./components/department/AddDepartment";
+import AllDepartments from "./components/department/AllDepartments";
 
 function App() {
   return (
@@ -41,6 +45,22 @@ function App() {
             <Route
               path="/pages/editpatient/:id"
               element={<EditPatient />}
+            ></Route>
+            <Route
+              path="/pages/departments"
+              element={<AllDepartments />}
+            ></Route>
+            <Route
+              path="/pages/adddepartment"
+              element={<AddDepartment />}
+            ></Route>
+            <Route
+              path="/pages/viewdepartment/:id"
+              element={<ViewDepartment />}
+            ></Route>
+            <Route
+              path="/pages/editdepartment/:id"
+              element={<EditDepartment />}
             ></Route>
           </Route>
           <Route path="*" element={<> Not found</>} />

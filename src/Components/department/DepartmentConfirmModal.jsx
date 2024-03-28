@@ -1,6 +1,6 @@
 import React from "react";
 
-function ConfirmationModal({ isOpen, onConfirm, onCancel }) {
+function DepartmentConfirmModal({ isOpen, onConfirm, onCancel }) {
   if (!isOpen) return null;
 
   return (
@@ -14,7 +14,7 @@ function ConfirmationModal({ isOpen, onConfirm, onCancel }) {
         </div>
         <div class="card-body">
           <div className="m-0">
-            <p>Are you sure you want to delete this patient?</p>
+            <p>Are you sure you want to delete this department?</p>
           </div>
         </div>
         <div className="card-footer d-flex justify-content-end p-2">
@@ -39,4 +39,4 @@ function ConfirmationModal({ isOpen, onConfirm, onCancel }) {
   );
 }
 
-export default ConfirmationModal;
+export default DepartmentConfirmModal;

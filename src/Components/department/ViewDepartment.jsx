@@ -11,15 +11,15 @@ import {
 } from "react-icons/fa";
 import { toast } from "react-toastify";
 import nProgress from "nprogress";
-import PatientConfirmModal from "./PatientConfirmModal";
+import DepartmentConfirmModal from "./DepartmentConfirmModal";
 
-const ViewPatient = () => {
+const ViewDepartment = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentId, setCurrentId] = useState(null);
 
-  const [patient, setPatient] = useState({
+  const [department, setDepartment] = useState({
     uhId: "",
     firstName: "",
     lastName: "",
@@ -31,30 +31,30 @@ const ViewPatient = () => {
   });
 
   useEffect(() => {
-    const getPatient = async () => {
+    const getDepartment = async () => {
       nProgress.start();
-      Api.get("/patient/" + id, {
+      Api.get("/department/" + id, {
         params: {
-          uhId: patient.uhId,
-          firstName: patient.firstName,
-          lastName: patient.lastName,
-          gender: patient.gender,
-          location: patient.location,
-          mobile: patient.mobile,
-          emailId: patient.emailId,
-          dob: patient.dob,
+          uhId: department.uhId,
+          firstName: department.firstName,
+          lastName: department.lastName,
+          gender: department.gender,
+          location: department.location,
+          mobile: department.mobile,
+          emailId: department.emailId,
+          dob: department.dob,
         },
       })
         .then(function (res) {
           nProgress.done();
-          setPatient(res.data);
+          setDepartment(res.data);
         })
         .catch((err) => {
           nProgress.done();
           console.log(err);
         });
     };
-    getPatient();
+    getDepartment();
   }, []);
 
   const requestDelete = (id) => {
@@ -64,9 +64,9 @@ const ViewPatient = () => {
 
   const handleDelete = () => {
     nProgress.start();
-    Api.delete("/patient/" + currentId)
+    Api.delete("/department/" + currentId)
       .then(function (res) {
-        toast.success("Patient deleted!", {
+        toast.success("Department deleted!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -77,7 +77,7 @@ const ViewPatient = () => {
           theme: "light",
         });
         nProgress.done();
-        navigate("/pages/patients");
+        navigate("/pages/departments");
       })
       .catch((err) => {
         nProgress.done();
@@ -90,7 +90,7 @@ const ViewPatient = () => {
   };
 
   const handleEdit = (id) => {
-    navigate("/pages/editpatient/" + id);
+    navigate("/pages/editdepartment/" + id);
   };
 
   return (
@@ -105,10 +105,10 @@ const ViewPatient = () => {
             backgroundColor: "#D4E6F1",
           }}
         >
-          <h5>Patient Details</h5>
+          <h5>Department Details</h5>
           <div className="ml-auto">
             <Link
-              to="/pages/patients"
+              to="/pages/departments"
               className="btn btn-sm btn-primary float-right"
               title="View All"
             >
@@ -123,43 +123,43 @@ const ViewPatient = () => {
                 <label className="d-block">
                   <strong>UH Id</strong>
                 </label>
-                <label className="d-block">{patient.uhId}</label>
+                <label className="d-block">{department.uhId}</label>
               </div>
               <div className="col-md-6 col-lg-4 mb-3">
                 <label className="d-block">
                   <strong>First Name</strong>
                 </label>
-                <label className="d-block">{patient.firstName}</label>
+                <label className="d-block">{department.firstName}</label>
               </div>
               <div className="col-md-6 col-lg-4 mb-3">
                 <label className="d-block">
                   <strong>Last Name</strong>
                 </label>
-                <label className="d-block">{patient.lastName}</label>
+                <label className="d-block">{department.lastName}</label>
               </div>
               <div className="col-md-6 col-lg-4 mb-3">
                 <label className="d-block">
                   <strong>Gender</strong>
                 </label>
-                <label className="d-block">{patient.gender}</label>
+                <label className="d-block">{department.gender}</label>
               </div>
               <div className="col-md-6 col-lg-4 mb-3">
                 <label className="d-block">
                   <strong>Location</strong>
                 </label>
-                <label className="d-block">{patient.location}</label>
+                <label className="d-block">{department.location}</label>
               </div>
               <div className="col-md-6 col-lg-4 mb-3">
                 <label className="d-block">
                   <strong>Mobile</strong>
                 </label>
-                <label className="d-block">{patient.mobile}</label>
+                <label className="d-block">{department.mobile}</label>
               </div>
               <div className="col-md-6 col-lg-4 mb-3">
                 <label className="d-block">
                   <strong>Email Id</strong>
                 </label>
-                <label className="d-block">{patient.emailId}</label>
+                <label className="d-block">{department.emailId}</label>
               </div>
             </div>
           </div>
@@ -169,19 +169,19 @@ const ViewPatient = () => {
             className="btn btn-danger btn-sm"
             style={{ marginRight: "8px" }}
             title="Delete"
-            onClick={() => requestDelete(patient.id)}
+            onClick={() => requestDelete(department.id)}
           >
             <FaTrash /> Delete
           </button>
           <button
             className="btn btn-primary btn-sm"
             title="Edit"
-            onClick={() => handleEdit(patient.id)}
+            onClick={() => handleEdit(department.id)}
           >
             <FaEdit /> Edit
           </button>
         </div>
-        <PatientConfirmModal
+        <DepartmentConfirmModal
           isOpen={isModalOpen}
           onConfirm={handleDelete}
           onCancel={() => setIsModalOpen(false)}
@@ -191,4 +191,4 @@ const ViewPatient = () => {
   );
 };
 
-export default ViewPatient;
+export default ViewDepartment;
