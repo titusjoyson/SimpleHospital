@@ -24,6 +24,10 @@ import AllDoctors from "./components/doctor/AllDoctors";
 import AddDoctor from "./components/doctor/AddDoctor";
 import ViewDoctor from "./components/doctor/ViewDoctor";
 import EditDoctor from "./components/doctor/EditDoctor";
+import AllAppointments from "./components/appointment/AllAppointments";
+import AddAppointment from "./components/appointment/AddAppointment";
+import ViewAppointment from "./components/appointment/ViewAppointment";
+import EditAppointment from "./components/appointment/EditAppointment";
 
 function App() {
   return (
@@ -75,6 +79,22 @@ function App() {
             <Route
               path="/pages/editdoctor/:id"
               element={<EditDoctor />}
+            ></Route>
+            <Route
+              path="/pages/appointments"
+              element={<AllAppointments />}
+            ></Route>
+            <Route
+              path="/pages/addappointment"
+              element={<AddAppointment />}
+            ></Route>
+            <Route
+              path="/pages/viewappointment/:id"
+              element={<ViewAppointment />}
+            ></Route>
+            <Route
+              path="/pages/editappointment/:id"
+              element={<EditAppointment />}
             ></Route>
           </Route>
           <Route path="*" element={<> Not found</>} />

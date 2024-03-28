@@ -3,6 +3,7 @@ import {
   FaBars,
   FaBriefcase,
   FaBriefcaseMedical,
+  FaCalendar,
   FaCartPlus,
   FaClinicMedical,
   FaHome,
@@ -101,9 +102,22 @@ const routes = [
     ],
   },
   {
-    path: "/appointments",
-    name: "Appointments",
-    icon: <BiCalendar />,
+    path: "/appointment",
+    name: "Appointment",
+    icon: <FaCalendar />,
+    exact: true,
+    subRoutes: [
+      {
+        path: "/pages/appointments",
+        name: "All Appointments",
+        icon: <FaList />,
+      },
+      {
+        path: "/pages/adddoctor",
+        name: "Add Appointment",
+        icon: <FaPlus />,
+      },
+    ],
   },
   {
     path: "/treatments",
