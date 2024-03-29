@@ -5,8 +5,6 @@ import axios from "axios";
 import "./style.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SidebarMenu from "../Sidebar/SidebarMenu";
-import SideBar from "../Sidebar/SideBar";
 import { MdWidthFull } from "react-icons/md";
 
 const Dashboard = () => {
