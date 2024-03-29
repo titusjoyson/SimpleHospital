@@ -12,7 +12,7 @@ import PrivateRoute from "./components/home/PrivateRoute";
 import ViewPatient from "./components/patient/ViewPatient";
 import EditPatient from "./components/patient/EditPatient";
 import Dashboard from "./components/home/Dashboard";
-import SideBar from "./components/Sidebar/SideBar";
+import SideBar from "./components/sidebar/SideBar";
 import NavBar from "./components/navbar/NavBar";
 import Login from "./components/home/Login";
 import AllPatients from "./components/patient/AllPatients";
