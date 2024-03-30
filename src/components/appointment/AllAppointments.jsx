@@ -112,10 +112,7 @@ const AllAppointments = () => {
   };
 
   return (
-    <div
-      className="m-0 p-2 rounded border vh-100"
-      style={{ backgroundColor: "#E5E7E9" }}
-    >
+    <div className="m-0 p-2 rounded border body-content">
       <div className="card">
         <div
           className="card-header text-dark d-flex justify-content-between p-2"
