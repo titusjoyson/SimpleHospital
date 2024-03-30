@@ -17,11 +17,13 @@ const AllAppointments = () => {
     const getAppointments = async () => {
       Api.get("/appointment/list/0/" + limit, {
         params: {
-          uhId: appointment.uhId,
-          firstName: appointment.firstName,
-          lastName: appointment.lastName,
-          location: appointment.location,
-          mobile: appointment.mobile,
+          patientId: appointment.patientId,
+          doctorId: appointment.doctorId,
+          patientRegNo: appointment.patientRegNo,
+          doctorRegNo: appointment.doctorRegNo,
+          aptNo: appointment.aptNo,
+          aptDt: appointment.aptDt,
+          aptTime: appointment.aptTime,
         },
       })
         .then(function (res) {
@@ -39,11 +41,13 @@ const AllAppointments = () => {
     nProgress.start();
     const result = Api.get("/appointment/list/" + currentPage + "/" + limit, {
       params: {
-        uhId: appointment.uhId,
-        firstName: appointment.firstName,
-        lastName: appointment.lastName,
-        location: appointment.location,
-        mobile: appointment.mobile,
+        patientId: appointment.patientId,
+        doctorId: appointment.doctorId,
+        patientRegNo: appointment.patientRegNo,
+        doctorRegNo: appointment.doctorRegNo,
+        aptNo: appointment.aptNo,
+        aptDt: appointment.aptDt,
+        aptTime: appointment.aptTime,
       },
     })
       .then(function (res) {
@@ -70,11 +74,13 @@ const AllAppointments = () => {
   };
 
   const [appointment, setAppointment] = useState({
-    uhId: "",
-    firstName: "",
-    lastName: "",
-    location: "",
-    mobile: "",
+    patientId: "",
+    doctorId: "",
+    patientRegNo: "",
+    doctorRegNo: "",
+    aptNo: "",
+    aptDt: "",
+    aptTime: "",
   });
 
   const handleSearch = async (e) => {
@@ -82,11 +88,13 @@ const AllAppointments = () => {
     nProgress.start();
     const result = Api.get("/appointment/list/0/" + limit, {
       params: {
-        uhId: appointment.uhId,
-        firstName: appointment.firstName,
-        lastName: appointment.lastName,
-        location: appointment.location,
-        mobile: appointment.mobile,
+        patientId: appointment.patientId,
+        doctorId: appointment.doctorId,
+        patientRegNo: appointment.patientRegNo,
+        doctorRegNo: appointment.doctorRegNo,
+        aptNo: appointment.aptNo,
+        aptDt: appointment.aptDt,
+        aptTime: appointment.aptTime,
       },
     })
       .then(function (res) {
@@ -137,6 +145,19 @@ const AllAppointments = () => {
             <form className="g-0" onSubmit={handleSearch}>
               <div className="row">
                 <div className="col-md-6 col-lg-4 mb-2">
+                  <label htmlFor="inputAptNo">Appointment No</label>
+                  <input
+                    type="text"
+                    className="form-control form-control-sm rounded-0"
+                    id="inputAptNo"
+                    placeholder=""
+                    autoComplete="off"
+                    onChange={(e) =>
+                      setAppointment({ ...appointment, aptNo: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="col-md-6 col-lg-4 mb-2">
                   <label htmlFor="inputUhId">UH Id</label>
                   <input
                     type="text"
@@ -145,72 +166,43 @@ const AllAppointments = () => {
                     placeholder=""
                     autoComplete="off"
                     onChange={(e) =>
-                      setAppointment({ ...appointment, uhId: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="col-md-6 col-lg-4 mb-2">
-                  <label htmlFor="inputFirstName">First Name</label>
-                  <input
-                    type="text"
-                    className="form-control form-control-sm rounded-0"
-                    id="inputFirstName"
-                    placeholder=""
-                    autoComplete="off"
-                    onChange={(e) =>
                       setAppointment({
                         ...appointment,
-                        firstName: e.target.value,
+                        patientRegNo: e.target.value,
                       })
                     }
                   />
                 </div>
                 <div className="col-md-6 col-lg-4 mb-2">
-                  <label htmlFor="inputLastName">Last Name</label>
+                  <label htmlFor="inputDoctorId">Doctor Id</label>
                   <input
                     type="text"
                     className="form-control form-control-sm rounded-0"
-                    id="inputLastName"
+                    id="inputDoctorId"
                     placeholder=""
                     autoComplete="off"
                     onChange={(e) =>
                       setAppointment({
                         ...appointment,
-                        lastName: e.target.value,
+                        doctorRegNo: e.target.value,
                       })
                     }
                   />
                 </div>
                 <div className="col-md-6 col-lg-4 mb-2">
-                  <label htmlFor="inputLocation">Location</label>
-                  <input
-                    type="text"
-                    className="form-control form-control-sm rounded-0"
-                    id="inputLocation"
-                    placeholder=""
-                    autoComplete="off"
-                    onChange={(e) =>
-                      setAppointment({
-                        ...appointment,
-                        location: e.target.value,
-                      })
-                    }
-                  />
+                  <label htmlFor="inputAptDt">Appointment Date</label>
+                <input
+                  type="date"
+                  className="form-control form-control-sm rounded-0"
+                  id="inputAptDt"
+                  placeholder=""
+                  autoComplete="off"
+                  value={appointment.aptDt}
+                  onChange={(e) =>
+                    setAppointment({ ...appointment, aptDt: e.target.value })
+                  }
+                />
                 </div>
-                <div className="col-md-6 col-lg-4 mb-2">
-                  <label htmlFor="inputMobile">Mobile</label>
-                  <input
-                    type="text"
-                    className="form-control form-control-sm rounded-0"
-                    id="inputMobile"
-                    autoComplete="off"
-                    pattern="[0-9]{10}"
-                    onChange={(e) =>
-                      setAppointment({ ...appointment, mobile: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="col-md-6 col-lg-4 mt-4 mb-2 required d-flex align-items-center"></div>
               </div>
             </form>
           </div>
@@ -234,33 +226,31 @@ const AllAppointments = () => {
         >
           <thead>
             <tr>
+              <th>Appointment No</th>
               <th>UH Id</th>
-              <th>Name</th>
-              <th>Gender</th>
-              <th>Location</th>
-              <th>Mobile</th>
-              <th>Email Id</th>
+              <th>Doctor Id</th>
+              <th>Date</th>
+              <th>Time</th>
             </tr>
           </thead>
           <tbody className="m-0 p-0">
             {appointments?.map((e) => (
-              <tr key={e.uhId}>
+              <tr key={e.aptNo}>
                 <td className="py-2 p-2">
                   <Link
                     to={`/pages/viewappointment/` + e.id}
-                    title={e.uhId}
+                    title={e.aptNo}
                     className="link-primary me-2 text-decoration-none"
                   >
-                    {e.uhId}
+                    {e.aptNo}
                   </Link>
                 </td>
                 <td className="py-2">
-                  {e.firstName} {e.lastName}
+                  {e.patientRegNo}
                 </td>
-                <td className="py-2">{e.gender}</td>
-                <td className="py-2">{e.location}</td>
-                <td className="py-2">{e.mobile}</td>
-                <td className="py-2">{e.emailId}</td>
+                <td className="py-2">{e.doctorRegNo}</td>
+                <td className="py-2">{e.aptDt}</td>
+                <td className="py-2">{e.aptTime}</td>
               </tr>
             ))}
           </tbody>

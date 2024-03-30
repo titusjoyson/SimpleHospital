@@ -20,14 +20,13 @@ const ViewAppointment = () => {
   const [currentId, setCurrentId] = useState(null);
 
   const [appointment, setAppointment] = useState({
-    uhId: "",
-    firstName: "",
-    lastName: "",
-    gender: "",
-    localtion: "",
-    mobile: "",
-    emailId: "",
-    dob: "",
+    patientId: "",
+    doctorId: "",
+    patientRegNo: "",
+    doctorRegNo: "",
+    aptNo: "",
+    aptDt: "",
+    aptTime: "",
   });
 
   useEffect(() => {
@@ -35,14 +34,11 @@ const ViewAppointment = () => {
       nProgress.start();
       Api.get("/appointment/" + id, {
         params: {
-          uhId: appointment.uhId,
-          firstName: appointment.firstName,
-          lastName: appointment.lastName,
-          gender: appointment.gender,
-          location: appointment.location,
-          mobile: appointment.mobile,
-          emailId: appointment.emailId,
-          dob: appointment.dob,
+          patientRegNo: appointment.patientRegNo,
+          doctorRegNo: appointment.doctorRegNo,
+          aptNo: appointment.aptNo,
+          aptDt: appointment.aptDt,
+          aptTime: appointment.aptTime,
         },
       })
         .then(function (res) {
@@ -121,45 +117,33 @@ const ViewAppointment = () => {
             <div className="row">
               <div className="col-md-6 col-lg-4 mb-3">
                 <label className="d-block">
-                  <strong>UH Id</strong>
+                  <strong>Appointment No</strong>
                 </label>
-                <label className="d-block">{appointment.uhId}</label>
+                <label className="d-block">{appointment.aptNo}</label>
               </div>
               <div className="col-md-6 col-lg-4 mb-3">
                 <label className="d-block">
-                  <strong>First Name</strong>
+                  <strong>Patient Reg No</strong>
                 </label>
-                <label className="d-block">{appointment.firstName}</label>
+                <label className="d-block">{appointment.patientRegNo}</label>
               </div>
               <div className="col-md-6 col-lg-4 mb-3">
                 <label className="d-block">
-                  <strong>Last Name</strong>
+                  <strong>Doctor Reg No</strong>
                 </label>
-                <label className="d-block">{appointment.lastName}</label>
+                <label className="d-block">{appointment.doctorRegNo}</label>
               </div>
               <div className="col-md-6 col-lg-4 mb-3">
                 <label className="d-block">
-                  <strong>Gender</strong>
+                  <strong>Date</strong>
                 </label>
-                <label className="d-block">{appointment.gender}</label>
+                <label className="d-block">{appointment.aptDt}</label>
               </div>
               <div className="col-md-6 col-lg-4 mb-3">
                 <label className="d-block">
-                  <strong>Location</strong>
+                  <strong>Time</strong>
                 </label>
-                <label className="d-block">{appointment.location}</label>
-              </div>
-              <div className="col-md-6 col-lg-4 mb-3">
-                <label className="d-block">
-                  <strong>Mobile</strong>
-                </label>
-                <label className="d-block">{appointment.mobile}</label>
-              </div>
-              <div className="col-md-6 col-lg-4 mb-3">
-                <label className="d-block">
-                  <strong>Email Id</strong>
-                </label>
-                <label className="d-block">{appointment.emailId}</label>
+                <label className="d-block">{appointment.aptTime}</label>
               </div>
             </div>
           </div>

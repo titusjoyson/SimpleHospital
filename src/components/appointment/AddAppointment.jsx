@@ -6,34 +6,43 @@ import { FaList, FaSave } from "react-icons/fa";
 import nProgress from "nprogress";
 
 const AddAppointment = () => {
+  const getCurrentDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const getCurrentTime = () => {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
+  };
+
   const [appointment, setAppointment] = useState({
-    uhId: "",
-    firstName: "",
-    lastName: "",
-    gender: "",
-    location: "",
-    mobile: "",
-    emailId: "",
-    dob: "",
+    patientId: "",
+    doctorId: "",
+    aptNo: "",
+    aptDt: getCurrentDate(),
+    aptTime: getCurrentTime(),
   });
   const navigate = useNavigate();
-  const genders = ["Male", "Female", "Others"];
 
   const handleSubmit = (e) => {
     nProgress.start();
     const formData = new FormData();
-    formData.append("firstName", appointment.firstName);
-    formData.append("lastName", appointment.lastName);
-    formData.append("gender", appointment.gender);
-    formData.append("location", appointment.location);
-    formData.append("mobile", Number(appointment.mobile));
-    formData.append("emailId", appointment.emailId);
-    formData.append("dob", "2023-11-01");
+    formData.append("patientId", appointment.patientId);
+    formData.append("doctorId", appointment.doctorId);
+    formData.append("aptNo", appointment.aptNo);
+    formData.append("aptDt", appointment.aptDt);
+    formData.append("aptTime", appointment.aptTime);
 
     Api.post("/appointment/create", formData)
       .then(function (res) {
         nProgress.done();
-        toast.success("Appointment created! UH Id: " + res.data.uhId, {
+        toast.success("Appointment created! Appointment No: " + res.data.aptNo, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -77,103 +86,66 @@ const AddAppointment = () => {
           <div className="m-0">
             <div className="row">
               <div className="col-md-6 col-lg-4 mb-2 form-group required">
-                <label htmlFor="inputFirstName" className="form-label">
-                  First Name
+                <label htmlFor="inputPatientId" className="form-label">
+                  Patient Id
                 </label>
                 <input
                   type="text"
                   className="form-control form-control-sm rounded-0"
-                  id="inputFirstName"
+                  id="inputPatientId"
                   placeholder=""
                   autoComplete="off"
                   onChange={(e) =>
                     setAppointment({
                       ...appointment,
-                      firstName: e.target.value,
+                      patientId: e.target.value,
                     })
                   }
                 />
               </div>
               <div className="col-md-6 col-lg-4 mb-2 form-group required">
-                <label htmlFor="inputLastName" className="form-label">
-                  Last Name
+                <label htmlFor="inputDoctorId" className="form-label">
+                  Doctor Id
                 </label>
                 <input
                   type="text"
                   className="form-control form-control-sm rounded-0"
-                  id="inputLastName"
+                  id="inputDoctorId"
                   placeholder=""
                   autoComplete="off"
                   onChange={(e) =>
-                    setAppointment({ ...appointment, lastName: e.target.value })
+                    setAppointment({ ...appointment, doctorId: e.target.value })
                   }
                 />
               </div>
               <div className="col-md-6 col-lg-4 mb-2 form-group required">
-                <label htmlFor="gender" className="form-label">
-                  Gender
-                </label>
-                <select
-                  name="gender"
-                  id="gender"
-                  className="form-select"
-                  onChange={(e) =>
-                    setAppointment({ ...appointment, gender: e.target.value })
-                  }
-                >
-                  <option key="0" value="0">
-                    --Select--
-                  </option>
-                  {genders.map((g) => {
-                    return (
-                      <option key={g} value={g}>
-                        {g}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-              <div className="col-md-6 col-lg-4 mb-2 form-group required">
-                <label htmlFor="inputLocation" className="form-label">
-                  Location
+                <label htmlFor="inputAptDt" className="form-label">
+                  Date
                 </label>
                 <input
-                  type="text"
+                  type="date"
                   className="form-control form-control-sm rounded-0"
-                  id="inputLocation"
+                  id="inputAptDt"
                   placeholder=""
                   autoComplete="off"
+                  value={appointment.aptDt}
                   onChange={(e) =>
-                    setAppointment({ ...appointment, location: e.target.value })
+                    setAppointment({ ...appointment, aptDt: e.target.value })
                   }
                 />
               </div>
               <div className="col-md-6 col-lg-4 mb-2 form-group required">
-                <label htmlFor="inputMobile" className="form-label">
-                  Mobile
+                <label htmlFor="inputAptTime" className="form-label">
+                  Time
                 </label>
                 <input
-                  type="text"
+                  type="time"
                   className="form-control form-control-sm rounded-0"
-                  id="inputMobile"
+                  id="inputAptTime"
                   autoComplete="off"
-                  pattern="[0-9]{10}"
+                  value={appointment.aptTime}
                   onChange={(e) =>
-                    setAppointment({ ...appointment, mobile: e.target.value })
-                  }
-                />
-              </div>
-              <div className="col-md-6 col-lg-4 mb-2">
-                <label htmlFor="inputEmailId" className="form-label">
-                  Email Id
-                </label>
-                <input
-                  type="text"
-                  className="form-control form-control-sm rounded-0"
-                  id="inputEmailId"
-                  autoComplete="off"
-                  onChange={(e) =>
-                    setAppointment({ ...appointment, emailId: e.target.value })
+                    setAppointment({ ...appointment, aptTime: e.target.value })
                   }
                 />
               </div>

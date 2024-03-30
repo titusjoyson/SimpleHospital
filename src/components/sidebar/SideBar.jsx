@@ -113,7 +113,7 @@ const routes = [
         icon: <FaList />,
       },
       {
-        path: "/pages/adddoctor",
+        path: "/pages/addappointment",
         name: "Add Appointment",
         icon: <FaPlus />,
       },
