@@ -1,8 +1,5 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import { Button, Paper, FormControl } from "@mui/material";
-import { KeyboardArrowRight } from "@mui/icons-material";
+import React, { useState, useMemo } from "react";
+import { Paper } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import ConfigForm from "../common/ConfigForm";
 import { FieldTypes } from "../../common/const";
@@ -21,8 +18,10 @@ const GENDER_OPTIONS = [
   { label: "Female", value: "female" },
   { label: "Other", value: "other" },
 ];
+let timer;
 
 export default function PatientRegistration() {
+  const [loading, setLoading] = useState(false);
   const {
     handleSubmit,
     control,
@@ -30,9 +29,19 @@ export default function PatientRegistration() {
   } = useForm({
     defaultValues: defaultValues,
   });
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    setLoading(true);
+    console.log(data);
+    timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  };
 
-  const formConfig = [
+  const isFormDisabled = () => {
+    return loading;
+  };
+
+  const baseFormConfig = [
     {
       section: "Personal Information",
       fields: [
@@ -42,6 +51,7 @@ export default function PatientRegistration() {
           label: "Patient Name",
           helperText: "",
           fieldType: FieldTypes.INPUT_FIELD,
+          disabled: isFormDisabled(),
         },
         {
           name: "gender",
@@ -51,6 +61,7 @@ export default function PatientRegistration() {
           fieldType: FieldTypes.SELECT_FIELD,
           options: GENDER_OPTIONS,
           onChange: () => {},
+          disabled: isFormDisabled(),
         },
         {
           name: "dob",
@@ -134,11 +145,18 @@ export default function PatientRegistration() {
     },
   ];
 
-  const formButtonConfig = [
+  const formConfig = useMemo(() => {
+    return baseFormConfig.map((section) => ({
+      ...section,
+      fields: section.fields.map((field) => ({ ...field, disabled: loading })),
+    }));
+  }, [baseFormConfig, loading]);
+
+  const baseFormButtonConfig = [
     {
       text: "Save",
       fieldType: "submit",
-      onClick: handleSubmit(onSubmit)
+      onClick: handleSubmit(onSubmit),
     },
     {
       text: "Cancel",
@@ -152,6 +170,13 @@ export default function PatientRegistration() {
     },
   ];
 
+  const formButtonConfig = useMemo(() => {
+    return baseFormButtonConfig.map((button) => ({
+      ...button,
+      disabled: loading
+    }));
+  }, [baseFormConfig, loading]);
+
   return (
     <Paper elevation={0}>
       <ConfigForm
@@ -162,6 +187,7 @@ export default function PatientRegistration() {
         control={control}
         errors={errors}
         defaultValues={defaultValues}
+        inlineButton
       />
     </Paper>
   );
